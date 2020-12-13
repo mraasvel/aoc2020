@@ -1,0 +1,8 @@
+17,x,13,19
+timestamp : 3417
+
+3417, 3419, 3420 = actual times
+
+201, 263, 180
+
+my timestamp: 1000510
