@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/13 08:39:06 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/13 10:08:42 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/14 09:26:25 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft.h"
 
 #define START_TIME 1000510
-#define BUS_COUNT 9
+#define BUS_COUNT 3
 
 typedef struct	s_bus
 {
@@ -105,6 +105,105 @@ size_t	get_timestamp(t_bus *buses)
 	return (0);
 }
 
+int	testing(t_bus *buses)
+{
+	size_t	m;
+	size_t	m2;
+	size_t	incrementor;
+
+	m = 0;
+	int	i = 0;
+	incrementor = buses[0].original_id * buses[1].original_id;
+	while (i < incrementor)
+	{
+		if (m % buses[0].original_id == buses[0].timestamp && m % buses[1].original_id == buses[1].timestamp){
+			printf("%ld\n", m);
+			break ;
+		}
+		m++;
+		i++;
+	}
+	printf("m1: %ld\n", m);
+	printf("%ld - %ld - %ld\n", m % 17, m % 13, incrementor);
+	printf("\n");
+	m2 = 0;
+	while (1)
+	{
+		if (m2 % buses[0].original_id == buses[0].timestamp && m2 % buses[2].original_id == buses[2].timestamp)
+			break ;
+		m2++;
+	}
+	printf("m2: %ld\n", m2);
+	printf("%ld %ld\n", 3417 % (buses[0].original_id * buses[2].original_id), 3417 % m2);
+	// printf("")
+	return (0);
+}
+
+static unsigned long long	find_nbr(t_bus *buses)
+{
+	size_t	m;
+	size_t	i;
+	size_t	nbr = 0;
+	size_t	product = 1;
+
+	i = 0;
+	while (i < BUS_COUNT)
+	{
+		m = 0;
+		while (m < buses[i].original_id)
+		{
+			if (!(((m * product + nbr) + buses[i].timestamp) % buses[i].original_id))
+			{
+				nbr = m * product + nbr;
+				product *= buses[i].original_id;
+				printf("%lu divided by %ld gives remainder %d\n", nbr, buses[i].original_id, buses[i].timestamp);
+				break ;
+			}
+			m++;
+		}
+		i++;
+	}
+	printf("nbr: %ld\n", nbr);
+	return (nbr);
+}
+
+// static unsigned long long	find_nbr(t_bus *buses)
+// {
+// 	int m;
+// 	int	i;
+// 	int	table[100];
+// 	unsigned long long nbr = 0;
+// 	unsigned long long product = 1;
+
+// 	str = ft_strchr(str, 10) + 1;
+// 	printf("%s\n", str);
+// 	i = 0;
+// 	while (*str)
+// 	{
+// 		if (ft_isdigit(*str))
+// 		{
+// 			table[i] = ft_atoi(str);
+// 			str += ft_numlen(table[i]) + 1;
+// 			m = 0;
+// 			while (m < table[i])
+// 			{
+// 				if (!(((m * product + nbr) + i) % table[i]))
+// 				{
+// 					nbr = m * product + nbr;
+// 					product *= table[i];
+// 					printf("%llu divided by %d gives remainder %d\n", nbr, table[i], i);
+// 					break ;
+// 				}
+// 				m++;
+// 			}
+// 		}
+// 		else if (*str == 'x')
+// 			str += 2;
+// 		i++;
+// 	}
+// 	return
+// }
+
 int	read_in_file(char *pathname)
 {
 	t_bus	buses[BUS_COUNT];
@@ -127,13 +226,13 @@ int	read_in_file(char *pathname)
 	free(line);
 	if (ret == -1)
 		return (-1);
-	get_timestamp(buses);
+	find_nbr(buses);
 	return (0);
 }
 
 int	main(void)
 {
-	read_in_file("input.txt");
-	// read_in_file("test.txt");
+	// read_in_file("input.txt");
+	read_in_file("test.txt");
 	return	(0);
 }
