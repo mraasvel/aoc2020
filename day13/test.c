@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/13 08:39:06 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/13 10:07:44 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/14 08:56:09 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft.h"
 
 #define START_TIME 1000510
-#define BUS_COUNT 3
+#define BUS_COUNT 9
 
 typedef struct	s_bus
 {
@@ -103,6 +103,41 @@ size_t	get_timestamp(t_bus *buses)
 	return (0);
 }
 
+int	check_values(t_bus *buses, size_t m)
+{
+	size_t	i;
+
+	for (i = 0; i < BUS_COUNT; i++)
+	{
+		if (m % buses[i].original_id != buses[i].timestamp)
+			break ;
+	}
+	if (i == BUS_COUNT)
+		return (1);
+	return (0);
+}
+
+int	testing(t_bus *buses)
+{
+	size_t	m;
+	int		i;
+
+	for (i = 0, m = 0; i < (buses[0].original_id * buses[1].original_id); i++, m++)
+	{
+		if (m % buses[0].original_id == 0 && m % buses[1].original_id == buses[1].timestamp)
+			break ;
+	}
+	while (1)
+	{
+		if (check_values(buses, m) == 1)
+			break ;
+		m += buses[0].original_id * buses[1].original_id;
+		// printf("%ld\n", m);
+	}
+	printf("%d - %ld\n", i, m);
+	return (0);
+}
+
 int	read_in_file(char *pathname)
 {
 	t_bus	buses[BUS_COUNT];
@@ -125,13 +160,13 @@ int	read_in_file(char *pathname)
 	free(line);
 	if (ret == -1)
 		return (-1);
-	get_timestamp(buses);
+	testing(buses);
 	return (0);
 }
 
 int	main(void)
 {
-	// read_in_file("input.txt");
-	read_in_file("test.txt");
+	read_in_file("input.txt");
+	// read_in_file("test.txt");
 	return	(0);
 }
