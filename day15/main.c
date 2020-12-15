@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/15 08:27:02 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/15 09:18:22 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/15 13:33:39 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "libft.h"
 
 /* allocating tons of memory to avoid making an effective data structure */
-#define TABLE_SIZE_1 10000
+#define TABLE_SIZE_1 2020
 #define TABLE_SIZE_2 30000000
 /* main input array */
 #define SIZE 7
