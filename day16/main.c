@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/16 08:21:46 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/16 10:21:47 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/16 11:11:21 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,30 +309,6 @@ int	set_position(t_rules *rules, t_intvect **vectors)
 		}
 	}
 }
-
-// int	set_position(t_rules *rules, t_intvect *vectors, int pos)
-// {
-// 	int	found;
-
-// 	for (size_t i = 0; i < RULE_COUNT; i++)
-// 	{
-// 		found = 0;
-// 		for (size_t j = 0; j < vectors->nmemb; j++)
-// 		{
-// 			if (check_num(rules[i], vectors->table[j]) == 1)
-// 			{
-// 				found = 1;
-// 				break ;
-// 			}
-// 		}
-// 		if (found == 0 && rules[i].pos == -1 && position_taken(rules, pos) == 0)
-// 		{
-// 			rules[i].pos = pos;
-// 		}
-// 	}
-	
-// 	return (0);
-// }
 
 int	print_result(t_rules *rules, t_intvect *my_ticket)
 {
