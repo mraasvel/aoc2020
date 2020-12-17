@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/17 08:23:59 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/17 13:46:28 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/17 13:48:04 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,11 +224,11 @@ int	cycle_through(LinkedList **hashtable, t_vector max, t_vector min)
 
 int	main(void)
 {
-	// LinkedList	hashtable[7][TABLE_SIZE];
 	LinkedList	**hashtable;
 	t_vector	max;
 	t_vector	min;
 
+	// probably should free the hashtable each cycle instead of just getting 7 hashtables
 	hashtable = (LinkedList**)malloc(7 * sizeof(LinkedList*));
 	for (size_t i = 0; i < 7; i++)
 	{
