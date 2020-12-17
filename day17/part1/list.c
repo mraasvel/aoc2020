@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/17 10:42:18 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/17 13:45:43 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/17 13:00:37 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ LinkedList	*create_new_entry(t_vector key)
 	new->data.coord.x = key.x;
 	new->data.coord.y = key.y;
 	new->data.coord.z = key.z;
-	new->data.coord.w = key.w;
 	new->data.status = active;
 	new->next = NULL;
 	return (new);

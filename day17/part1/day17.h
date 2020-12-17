@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/17 08:40:56 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/17 13:42:33 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/17 12:59:11 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct	s_vector
 	int	x;
 	int	y;
 	int	z;
-	int	w;
 }				t_vector;
 
 typedef struct	s_cube
@@ -48,7 +47,7 @@ typedef struct	s_LinkedList
 
 /* main.c */
 
-t_vector	get_vector(int x, int y, int z, int w);
+t_vector	get_vector(int x, int y, int z);
 void	print_vector(t_vector vector);
 
 /* Hash Table Functions */

@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/17 09:53:17 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/17 13:45:15 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/17 13:01:19 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		hashtable_init(LinkedList *hashtable)
 
 size_t	hash(t_vector key)
 {
-	return ((size_t)(key.x * 0xfafdceb775 +  key.y * 0xd32a1752b8 + key.z * 0x51ff06ea0f + key.w * 0x4fc7263edf) % TABLE_SIZE);
+	return ((size_t)(key.x * 0xfafdceb775 +  key.y * 0xd32a1752b8 + key.z * 0x51ff06ea0f) % TABLE_SIZE);
 }
 
 /*
@@ -43,7 +43,7 @@ size_t	hash(t_vector key)
 
 int			hash_key_match(t_vector a, t_vector b)
 {
-	if (a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w)
+	if (a.x == b.x && a.y == b.y && a.z == b.z)
 		return (0);
 	return (1);
 }
@@ -66,7 +66,6 @@ int			hash_insert(LinkedList *hashtable, t_vector key)
 		entry->data.coord.x = key.x;
 		entry->data.coord.y = key.y;
 		entry->data.coord.z = key.z;
-		entry->data.coord.w = key.w;
 		entry->data.status = active;
 	}
 	else
