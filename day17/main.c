@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/17 08:23:59 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/17 14:02:10 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/17 14:38:12 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,8 @@ int	cycle_through(LinkedList **hashtable, t_vector max, t_vector min)
 	min = vector_add(min, -1);
 	while (cycles < 6)
 	{
-		printf("Cycle: %d\n", cycles);
-		print_current_state(*hashtable, max, min);
+		// printf("Cycle: %d\n", cycles);
+		// print_current_state(*hashtable, max, min);
 		new_hashtable = (LinkedList*)malloc(TABLE_SIZE * sizeof(LinkedList));
 		if (new_hashtable == NULL)
 			return (error);
