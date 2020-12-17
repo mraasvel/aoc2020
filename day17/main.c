@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/17 08:23:59 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/17 13:48:04 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/17 14:02:10 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 #include "libft.h"
 
 size_t	active_count = 0;
+
+void		ft_swap_table(LinkedList **a, LinkedList **b)
+{
+	LinkedList *tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
 
 void		set_minmax(t_vector *max, t_vector *min)
 {
@@ -102,8 +111,6 @@ int	get_initial_values(char *pathname, LinkedList *hashtable, t_vector *max, t_v
 				min->w = ft_min(0, min->w);
 				active_count += 1;
 				hash_insert(hashtable, get_vector(x, y, 0, 0));
-				printf("insert: ");
-				print_vector(get_vector(x, y, 0, 0));
 			}
 			x++;
 		}
@@ -148,6 +155,7 @@ void	print_current_state(LinkedList *hashtable, t_vector max, t_vector min)
 
 	for(int w = min.w + 1; w <= max.w - 1; w++)
 	{
+		printf("w = %d\n", w);
 		for (int z = min.z + 1; z <= max.z - 1; z++)
 		{
 			printf("z = %d\n", z);
@@ -173,14 +181,19 @@ int	cycle_through(LinkedList **hashtable, t_vector max, t_vector min)
 	int			cycles;
 	int			adj;
 	t_vector	key;
+	LinkedList	*new_hashtable;
 
 	cycles = 0;
 	max = vector_add(max, 1);
 	min = vector_add(min, -1);
 	while (cycles < 6)
 	{
-		// printf("Cycle: %d\n", cycles);
-		// print_current_state(hashtable[cycles], max, min);
+		printf("Cycle: %d\n", cycles);
+		print_current_state(*hashtable, max, min);
+		new_hashtable = (LinkedList*)malloc(TABLE_SIZE * sizeof(LinkedList));
+		if (new_hashtable == NULL)
+			return (error);
+		hashtable_init(new_hashtable);
 		for (int w = min.w; w <= max.w; w++)
 		{
 			for (int z = min.z; z <= max.z; z++)
@@ -190,20 +203,20 @@ int	cycle_through(LinkedList **hashtable, t_vector max, t_vector min)
 					for (int x = min.x; x <= max.x; x++)
 					{
 						key = get_vector(x, y, z, w);
-						if (hash_fetch(hashtable[cycles], key) == active)
+						if (hash_fetch(*hashtable, key) == active)
 						{
-							adj = check_adjacent_cubes(key, hashtable[cycles], max, min);
+							adj = check_adjacent_cubes(key, *hashtable, max, min);
 							if (adj == 2 || adj == 3)
-								hash_insert(hashtable[cycles + 1], key);
+								hash_insert(new_hashtable, key);
 							else
 								active_count -= 1;
 						}
 						else
 						{
-							adj = check_adjacent_cubes(key, hashtable[cycles], max, min);
+							adj = check_adjacent_cubes(key, *hashtable, max, min);
 							if (adj == 3)
 							{
-								hash_insert(hashtable[cycles + 1], key);
+								hash_insert(new_hashtable, key);
 								active_count += 1;
 							}
 						}
@@ -211,6 +224,9 @@ int	cycle_through(LinkedList **hashtable, t_vector max, t_vector min)
 				}
 			}
 		}
+		ft_swap_table(hashtable, &new_hashtable);
+		hash_free(new_hashtable);
+		free(new_hashtable);
 		max = vector_add(max, 1);
 		min = vector_add(min, -1);
 		cycles++;
@@ -224,25 +240,19 @@ int	cycle_through(LinkedList **hashtable, t_vector max, t_vector min)
 
 int	main(void)
 {
-	LinkedList	**hashtable;
+	LinkedList	*hashtable;
 	t_vector	max;
 	t_vector	min;
 
 	// probably should free the hashtable each cycle instead of just getting 7 hashtables
-	hashtable = (LinkedList**)malloc(7 * sizeof(LinkedList*));
-	for (size_t i = 0; i < 7; i++)
-	{
-		hashtable[i] = (LinkedList*)malloc(TABLE_SIZE * sizeof(LinkedList));
-		hashtable_init(hashtable[i]);
-	}
+	hashtable = (LinkedList*)malloc(TABLE_SIZE * sizeof(LinkedList));
+	if (hashtable == NULL)
+		return (0);
+	hashtable_init(hashtable);
 	set_minmax(&max, &min);
-	get_initial_values("input.txt", hashtable[0], &max, &min);
-	cycle_through(hashtable, max, min);
-	for (size_t i = 0; i < 7; i++)
-	{
-		hash_free(hashtable[i]);
-		free(hashtable[i]);
-	}
+	get_initial_values("input.txt", hashtable, &max, &min);
+	cycle_through(&hashtable, max, min);
+	hash_free(hashtable);
 	free(hashtable);
 	printf("cube count: %lu\n", active_count);
 	return (0);
