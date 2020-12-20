@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 16:28:53 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/20 18:17:04 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/20 21:09:50 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	find_dragon_in_map(void)
 	}
 	if (cnt > 0)
 		dragon_count = cnt;
-	printf("final cnt: %d\n", cnt);
 	return (cnt);
 }
 
