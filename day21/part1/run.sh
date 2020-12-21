@@ -1,0 +1,1 @@
+gcc -g -fsanitize=address *.c -L. -lft -lvect && ./a.out
