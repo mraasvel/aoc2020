@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/22 08:29:32 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/22 11:09:55 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/22 13:58:52 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,9 @@ int		play_game_p1(t_deck *p1, t_deck *p2);
 int		play_game_p2(t_deck *p1, t_deck *p2, int game);
 void	print_list(t_deck *start);
 int		get_part1_result(t_deck *winner);
+
+int		check_states(t_list *states_1, t_deck *deck_1, t_list *states_2, t_deck *deck_2);
+void	update_state(t_list **states, t_deck *deck);
+void	destroy_state(t_list **states);
 
 #endif
