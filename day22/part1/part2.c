@@ -6,16 +6,44 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/22 10:18:27 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/22 10:56:51 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/22 11:15:17 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "day22.h"
 
+int	play_game_p2(t_deck *p1, t_deck *p2, int game);
+
 // size_p1 and size_p2 will include the cards drawn for current round.
 int	play_round(t_deck **p1, t_deck **p2, int size_p1, int size_p2)
 {
-	
+	int	result;
+
+	size_p1--;
+	size_p2--;
+	if ((*p1)->card <= size_p1 && (*p2)->card <= size_p2)
+	{
+		result = play_game_p2(copy_n_elements((*p1)->next, (*p1)->card), copy_n_elements((*p2)->next, (*p2)->card), 1);
+	}
+	else if ((*p1)->card > (*p2)->card)
+		result = win_p1;
+	else if ((*p2)->card > (*p1)->card)
+		result = win_p2;
+	if (result == win_p1)
+	{
+		append_element(p1, (*p1)->card);
+		append_element(p1, (*p2)->card);
+		size_p1 += 2;
+	}
+	else if (result == win_p2)
+	{
+		append_element(p2, (*p2)->card);
+		append_element(p2, (*p1)->card);
+		size_p2 += 2;
+	}
+	delete_element(p1, (*p1)->card);
+	delete_element(p2, (*p2)->card);
+	return (result);
 }
 
 // send copies of initial_p1 and initial_p2
@@ -58,9 +86,6 @@ int	play_game_p2(t_deck *p1, t_deck *p2, int game)
 	size_p1 = get_list_size(p1);
 	size_p2 = get_list_size(p2);
 	round = 0;
-	// printf("Round %d (game %d)\n", round + 1, game + 1);
-	// print_list(p1);
-	// print_list(p2);
 	while (p1 != NULL && p2 != NULL)
 	{
 		size_p1--;
@@ -71,16 +96,7 @@ int	play_game_p2(t_deck *p1, t_deck *p2, int game)
 			break ;
 		}
 		if (p1->card <= size_p1 && p2->card <= size_p2)
-		{
-			// print_list(p1);
-			// print_list(p2);
 			result = play_game_p2(copy_n_elements(p1->next, p1->card), copy_n_elements(p2->next, p2->card), game + 1);
-			// if (result == win_p1)
-				// printf("Player 1 won game %d\n\n", game + 1);
-			// else
-				// printf("Player 2 won game %d\n\n", game + 1);
-			// result = recursive_combat(copy_n_elements(p1->next, p1->card), copy_n_elements(p2->next, p2->card), p1->card, p2->card);
-		}
 		else if (p1->card > p2->card)
 			result = win_p1;
 		else if (p2->card > p1->card)
@@ -100,9 +116,6 @@ int	play_game_p2(t_deck *p1, t_deck *p2, int game)
 		delete_element(&p1, p1->card);
 		delete_element(&p2, p2->card);
 		round++;
-		// printf("Round %d (game %d)\n", round + 1, game + 1);
-		// print_list(p1);
-		// print_list(p2);
 	}
 	if (p1 == NULL)
 		result = win_p2;

@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/22 08:29:32 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/22 10:58:44 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/22 11:09:55 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "libft.h"
 #include "libvect.h"
 
-# define PATH "../sample.txt"
+# define PATH "../input.txt"
 
 typedef enum	e_returns
 {
