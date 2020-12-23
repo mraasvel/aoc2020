@@ -1,2 +1,2 @@
-gcc -g -fsanitize=address *.c -L. -lft -lvect && ./a.out
-# gcc *.c -L. -lft -lvect && ./a.out
+# gcc -g -fsanitize=address *.c -L. -lft -lvect && ./a.out
+gcc -O3 *.c && time ./a.out

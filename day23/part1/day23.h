@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/23 08:21:49 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/23 09:59:51 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/23 11:54:31 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // # define LABELS "389125467" // SAMPLE
 
 # define MIN 1
-# define MAX 9
+# define MAX 1000000
 # define MILLION 1000000
 # define MOVE_COUNT 10000000
 

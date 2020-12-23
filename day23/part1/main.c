@@ -6,28 +6,38 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/23 08:21:16 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/23 10:07:49 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/23 11:52:44 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "day23.h"
 
+t_cups	*jump_table[MILLION];
+
 t_cups	*create_list(void)
 {
 	t_cups	*labels;
+	t_cups	*current;
 	int		i;
 
 	i = 0;
-	labels = NULL;
+	labels = list_create(LABELS[i] - '0');
+	jump_table[LABELS[i] - '0'] = labels;
+	i = 1;
+	current = labels;
 	while (LABELS[i] != 0)
 	{
-		list_append(&labels, LABELS[i] - '0');
+		current->next = list_create(LABELS[i] - '0');
+		jump_table[LABELS[i] - '0'] = current->next;
+		current = current->next;
 		i++;
 	}
 	i++;
 	while (i <= MILLION)
 	{
-		list_append(&labels, i);
+		current->next = list_create(i);
+		jump_table[i] = current->next;
+		current = current->next;
 		i++;
 	}
 	return (labels);
@@ -44,7 +54,7 @@ void	print_cups(t_cups *start)
 	printf("\n");
 }
 
-t_cups	*find_destination(t_cups *cups, int current_cup)
+t_cups	*find_destination(t_cups *cups, t_cups *pick_up, int current_cup)
 {
 	t_cups	*finder;
 
@@ -53,13 +63,15 @@ t_cups	*find_destination(t_cups *cups, int current_cup)
 		current_cup--;
 		if (current_cup < MIN)
 			current_cup = MAX;
-		finder = cups;
+		finder = pick_up;
 		while (finder != NULL)
 		{
 			if (finder->cup == current_cup)
-				return (finder);
+				break ;
 			finder = finder->next;
 		}
+		if (finder == NULL)
+			return (jump_table[current_cup]);
 	}
 	return (NULL);
 }
@@ -79,19 +91,13 @@ int	do_move(t_cups **cups, t_cups *current_cup)
 	t_cups	*destination;
 
 	pick_up = list_extract(cups, current_cup, 3);
-	destination = find_destination(*cups, current_cup->cup);
+	destination = find_destination(*cups, pick_up, current_cup->cup);
 	list_insert(cups, destination, pick_up);
 }
 
 t_cups	*find_value(t_cups *cups, int value)
 {
-	while (cups != NULL)
-	{
-		if (cups->cup == value)
-			return (cups);
-		cups = cups->next;
-	}
-	return (cups);
+	return (jump_table[value]);
 }
 
 void	print_part2_result(t_cups *cups, t_cups *one)
@@ -99,15 +105,38 @@ void	print_part2_result(t_cups *cups, t_cups *one)
 	t_cups	*get;
 	size_t	result;
 
+	printf("one: %d\n", one->cup);
 	get = one->next;
 	if (get == NULL)
 		get = cups;
+	printf("Result1: %d\n", get->cup);
 	result = get->cup;
 	get = get->next;
 	if (get == NULL)
 		get = cups;
+	printf("Result2: %d\n", get->cup);
 	result *= get->cup;
 	printf("Part 2: %lu\n", result);
+}
+
+void	print_until_one_plus_two(t_cups *cups)
+{
+	t_cups	*finder;
+	int		found;
+
+	finder = cups;
+	found = 0;
+	int i = 0;
+	while (i < 3 && finder != NULL)
+	{
+		if (found == 1)
+			i++;
+		printf(" %d", finder->cup);
+		if (finder->cup == 1)
+			found = 1;
+		finder = finder->next;
+	}
+	printf("\n");
 }
 
 int	part1(t_cups **cups)
@@ -127,6 +156,7 @@ int	part1(t_cups **cups)
 	}
 	current_cup = find_value(*cups, 1);
 	// print_cups(*cups);
+	// print_until_one_plus_two(*cups);
 	print_part2_result(*cups, current_cup);
 	return (0);
 }
