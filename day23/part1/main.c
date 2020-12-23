@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/23 08:21:16 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/23 10:07:49 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/23 11:17:46 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_cups	*create_list(void)
 		list_append(&labels, i);
 		i++;
 	}
+	printf("lalala\n");
 	return (labels);
 }
 
@@ -103,10 +104,12 @@ void	print_part2_result(t_cups *cups, t_cups *one)
 	if (get == NULL)
 		get = cups;
 	result = get->cup;
+	printf("Number one: %d\n", get->cup);
 	get = get->next;
 	if (get == NULL)
 		get = cups;
 	result *= get->cup;
+	printf("Number two: %d\n", get->cup);
 	printf("Part 2: %lu\n", result);
 }
 
@@ -119,6 +122,8 @@ int	part1(t_cups **cups)
 	i = 0;
 	while (i < MOVE_COUNT)
 	{
+		if (i % 1000 == 0)
+			printf("move: %d\n", i);
 		do_move(cups, current_cup);
 		current_cup = current_cup->next;
 		if (current_cup == NULL)
