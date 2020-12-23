@@ -6,7 +6,7 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/23 08:21:49 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/23 11:54:31 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/23 11:57:42 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define PATH "../input.txt"
 
 
-# define LABELS "247819356" // INPUT
-// # define LABELS "389125467" // SAMPLE
+// # define LABELS "247819356" // INPUT
+# define LABELS "389125467" // SAMPLE
 
 # define MIN 1
 # define MAX 1000000
