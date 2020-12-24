@@ -6,13 +6,13 @@
 /*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/23 08:21:16 by mraasvel      #+#    #+#                 */
-/*   Updated: 2020/12/23 12:00:46 by mraasvel      ########   odam.nl         */
+/*   Updated: 2020/12/23 17:46:49 by mraasvel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "day23.h"
 
-t_cups	*jump_table[MILLION];
+t_cups	*jump_table[MILLION + 1];
 
 t_cups	*create_list(void)
 {
